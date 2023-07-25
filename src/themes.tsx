@@ -3,5 +3,7 @@ export const COLORS = {
     light: "#F9F9FD",   
     grey: "#C4C5D7",
     orange: "#FF5722",
-    whiteLilac: "#F9F9FD"
+    whiteLilac: "#F9F9FD",
+    white: "#FFFFFF",
+    lynch: "#5F6B8A"
 }
