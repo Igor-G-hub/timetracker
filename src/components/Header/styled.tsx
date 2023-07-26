@@ -4,7 +4,7 @@ import { COLORS } from '../../themes';
 
 export const HeaderStyled = styled.header` 
     display: flex; 
-    padding: 1.25rem 1.875rem;
+    padding: 1.1rem 1.875rem;
     justify-content: space-between;
     flex-wrap: wrap;
     background-color: ${COLORS.blue};

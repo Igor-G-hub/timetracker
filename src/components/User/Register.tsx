@@ -14,7 +14,6 @@ import { COLORS } from "../../themes";
 import { RegisterIcon } from "../../shared/assets/svgs";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import { auth } from "../../firebase-config";
-import { FormikProps } from "formik";
 import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from "../../routes";
