@@ -6,7 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../firebase-config";
 import store from "../../store";
-import { SET_IS_AUTH } from "../../redux/actionTypes/appActionType";
+import {
+  SET_IS_AUTH,
+  SET_UNFINISHED_TRACKERS,
+} from "../../redux/actionTypes/appActionType";
 import { ROUTES } from "../../routes";
 
 interface Props {
@@ -40,6 +43,12 @@ const Header: React.FC<Props> = ({ isAuth }) => {
     setActiveItem({
       index: 0,
       label: false,
+    });
+    store.dispatch({
+      type: SET_UNFINISHED_TRACKERS,
+      payload: {
+        unfinishedTrackers: [],
+      },
     });
   };
 
