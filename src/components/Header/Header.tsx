@@ -1,35 +1,62 @@
-import React, {useState, useEffect} from 'react';
-import { HeaderStyled, TabMenuStyled } from './styled';
-import { Logo } from '../../shared/assets/svgs';
-import { navItems } from './constants';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import { HeaderStyled, TabMenuStyled } from "./styled";
+import { Logo } from "../../shared/assets/svgs";
+import { navItems } from "./constants";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "@firebase/auth";
+import { auth } from "../../firebase-config";
+import store from "../../store";
+import { SET_IS_AUTH } from "../../redux/actionTypes/appActionType";
+import { ROUTES } from "../../routes";
 
 interface Props {
+  isAuth: boolean;
 }
 
-const Header: React.FC<Props> = () => {
-  interface Item { 
-    index: number; 
-    label: string | undefined; 
+const Header: React.FC<Props> = ({ isAuth }) => {
+  interface Item {
+    index: number;
+    label: string | undefined | boolean;
   }
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState<Item>({
     index: 0,
-    label: navItems[0].label
+    label: isAuth && navItems[0].label,
   });
 
-  //  useEffect(() => {
-  //   const newActiveItem = navItems.find(item => item?.label === activeItem.label);
-  //   newActiveItem && navigate(newActiveItem.route);
-  //  }, [activeItem.index])
+  useEffect(() => {
+    const newActiveItem = navItems.find(
+      (item) => item?.label === activeItem.label
+    );
+    if (newActiveItem) {
+      newActiveItem.label === "Logout"
+        ? logOut()
+        : navigate(newActiveItem.route);
+    }
+  }, [activeItem.index]);
+
+  const logOut = async () => {
+    await signOut(auth);
+    setActiveItem({
+      index: 0,
+      label: false,
+    });
+  };
 
   return (
-    <HeaderStyled >
-      <div style={{width: "100px", fontSize: "30px"}}><Logo/></div>
-      <TabMenuStyled model={navItems} activeIndex={activeItem.index} onTabChange={(e) => {
-        setActiveItem({index: e.index, label: e.value.label})
-      }}/>
+    <HeaderStyled>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Logo />
+      </div>
+      {isAuth && (
+        <TabMenuStyled
+          model={navItems}
+          activeIndex={activeItem.index}
+          onTabChange={(e) => {
+            setActiveItem({ index: e.index, label: e.value.label });
+          }}
+        />
+      )}
     </HeaderStyled>
   );
 };
