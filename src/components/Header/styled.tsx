@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TabMenu } from "primereact/tabmenu";
-import { COLORS } from "../../themes";
+import { BREAKPOINTS, COLORS } from "../../themes";
 
 export const HeaderStyled = styled.header`
   display: flex;
@@ -10,10 +10,22 @@ export const HeaderStyled = styled.header`
   flex-wrap: wrap;
   background-color: ${COLORS.blue};
   border-radius: 0 0 1.25rem 1.25rem;
+
+  @media screen and (max-width: ${BREAKPOINTS.md}) {
+    height: 120px;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+
+    svg {
+      transform: scale(0.8);
+    }
+  }
 `;
 
 export const TabMenuStyled = styled(TabMenu)`
   display: flex;
+  flex-wrap: wrap;
   .p-tabmenu-nav {
     background-color: inherit;
   }

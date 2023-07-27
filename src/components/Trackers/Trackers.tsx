@@ -34,6 +34,7 @@ import { useSelector } from "react-redux";
 import { unfinishedTrackersSelector } from "../../redux/selectors/appSelector";
 import store from "../../store";
 import { SET_UNFINISHED_TRACKERS } from "../../redux/actionTypes/appActionType";
+import { ContainerStyled } from "./styled";
 
 interface Props {}
 
@@ -387,9 +388,7 @@ const Trackers: React.FC<Props> = () => {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", padding: "0.625rem" }}
-    >
+    <ContainerStyled>
       <h4>
         <i
           className="pi pi-calendar"
@@ -423,7 +422,7 @@ const Trackers: React.FC<Props> = () => {
           onClick={() => handleStopAll()}
         ></Button>
       </div>
-      <div className="card">
+      <div className="card" style={{ marginTop: "1.125rem", width: "100%" }}>
         <DataTable
           value={trackers}
           responsiveLayout="stack"
@@ -487,7 +486,7 @@ const Trackers: React.FC<Props> = () => {
           onClick={() => handleSaveEditSubmit()}
         />
       </Dialog>
-    </div>
+    </ContainerStyled>
   );
 };
 

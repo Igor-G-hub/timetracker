@@ -31,6 +31,7 @@ import { formatSeconds } from "../Trackers/helpers/utils";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
+import { ContainerStyled } from "./styled";
 
 interface Props {}
 
@@ -190,14 +191,17 @@ const History: React.FC<Props> = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <ContainerStyled>
       <h4>Trackers history</h4>
       <Filters
         setFilteredTrackers={setFilteredTrackers}
         filterInputValue={filterInputValue}
         setFilterInputValue={setFilterInputValue}
       />
-      <div className="card mt-5">
+      <div
+        className="card mt-5"
+        style={{ marginTop: "1.125rem", width: "100%" }}
+      >
         <DataTable
           value={filteredTrackers}
           responsiveLayout="stack"
@@ -264,7 +268,7 @@ const History: React.FC<Props> = () => {
           onClick={() => handleSaveEditSubmit()}
         />
       </Dialog>
-    </div>
+    </ContainerStyled>
   );
 };
 
