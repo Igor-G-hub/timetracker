@@ -11,7 +11,12 @@ import { classNames } from "primereact/utils";
 import "./Login.css";
 import { COLORS } from "../../themes";
 import { RegisterIcon } from "../../shared/assets/svgs";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "@firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "@firebase/auth";
 import { auth } from "../../firebase-config";
 import Login from "./Login";
 import { validate } from "./helpers/utils";
@@ -20,60 +25,78 @@ import store from "../../store";
 import { SET_IS_AUTH } from "../../redux/actionTypes/appActionType";
 
 interface FormData {
-  email: string,
-  password: string,
-
+  email: string;
+  password: string;
 }
 
 export const User = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
-    password: ""
+    password: "",
   });
   const [errors, setErrors] = useState<FormData>({
     email: "",
-    password: ""
+    password: "",
   });
   const [showRegister, setShowRegister] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
 
   const handleSubmit = () => {
     const errors = validate(formData);
-    const isInvalid = Object.values(errors).some(erorr => !!erorr);
+    const isInvalid = Object.values(errors).some((erorr) => !!erorr);
     if (isInvalid) {
-      setErrors(errors); 
+      setErrors(errors);
     } else {
-      showRegister ? register() : login()
+      showRegister ? register() : login();
     }
-     
-  }
+  };
 
   const register = async () => {
-    console.log("regisgter");
     try {
-      const user = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      setShowMessage(true);  
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      setShowMessage(true);
     } catch (err) {
-      console.log("register error", err)
+      console.log(err);
     }
-  }
+  };
 
   const login = async () => {
-    console.log("login");
     try {
-      const user = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
     } catch (err) {
-      console.log("register error", err)
+      console.log(err);
     }
-  }
+  };
 
-  console.log("showMessage", showMessage);
-
-  return ( 
+  return (
     <>
-    {showRegister ? <Register handleSubmit={handleSubmit} setShowRegister={setShowRegister} errors={errors} setFormData={setFormData} formData={formData} showMessage={showMessage} setShowMessage={setShowMessage}/> :
-     <Login handleSubmit={handleSubmit} setShowRegister={setShowRegister} errors={errors} setFormData={setFormData} formData={formData}/>  
-    }
+      {showRegister ? (
+        <Register
+          handleSubmit={handleSubmit}
+          setShowRegister={setShowRegister}
+          errors={errors}
+          setFormData={setFormData}
+          formData={formData}
+          showMessage={showMessage}
+          setShowMessage={setShowMessage}
+        />
+      ) : (
+        <Login
+          handleSubmit={handleSubmit}
+          setShowRegister={setShowRegister}
+          errors={errors}
+          setFormData={setFormData}
+          formData={formData}
+        />
+      )}
     </>
   );
 };
