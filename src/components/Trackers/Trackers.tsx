@@ -35,17 +35,9 @@ import { unfinishedTrackersSelector } from "../../redux/selectors/appSelector";
 import store from "../../store";
 import { SET_UNFINISHED_TRACKERS } from "../../redux/actionTypes/appActionType";
 import { ContainerStyled } from "./styled";
+import { Tracker } from "../../redux/reducers/appReducer";
 
 interface Props {}
-
-interface Tracker {
-  id: string;
-  createTime: number;
-  description: string;
-  timetracked: number;
-  isCurrentlyTracking?: boolean;
-  userId?: string;
-}
 
 interface SaveEditData {
   id: string;
@@ -81,8 +73,7 @@ const Trackers: React.FC<Props> = () => {
     if (!trackers.length) {
       processData();
     } else {
-      const clonedTrackers = JSON.parse(JSON.stringify(trackers));
-      startTimer(clonedTrackers);
+      startTimer(trackers);
     }
   }, []);
 
@@ -203,7 +194,9 @@ const Trackers: React.FC<Props> = () => {
 
   const onClickIcon = async (rowData: Tracker, action: string) => {
     let clonedTrackers = JSON.parse(JSON.stringify(trackers));
-    let match = clonedTrackers.find((item: Tracker) => item.id === rowData.id);
+    let match = clonedTrackers.find((item: Tracker) => {
+      return item.id === rowData.id;
+    });
     switch (action) {
       case ACTIONS.play:
         clonedTrackers.forEach((item: Tracker) => {

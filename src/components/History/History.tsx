@@ -32,16 +32,9 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { ContainerStyled } from "./styled";
+import { Tracker } from "../../redux/reducers/appReducer";
 
 interface Props {}
-
-interface Trackers {
-  id: string;
-  createTime: number;
-  description: string;
-  timetracked: number;
-  isCurrentlyTracking?: boolean;
-}
 
 interface SaveEditData {
   id: string;
@@ -56,8 +49,8 @@ const History: React.FC<Props> = () => {
     db,
     DB_COLLECTION_NAMES.finishedTimetrackers
   );
-  const [trackers, setTrackers] = useState<Trackers[]>([]);
-  const [filteredTrackers, setFilteredTrackers] = useState<Trackers[]>([]);
+  const [trackers, setTrackers] = useState<Tracker[]>([]);
+  const [filteredTrackers, setFilteredTrackers] = useState<Tracker[]>([]);
   const [filterInputValue, setFilterInputValue] = useState("");
   const [saveEditData, setSaveEditData] = useState<SaveEditData>({
     isOpened: false,
@@ -105,7 +98,7 @@ const History: React.FC<Props> = () => {
     }
   };
 
-  const onClickIcon = (rowData: Trackers, action: string) => {
+  const onClickIcon = (rowData: Tracker, action: string) => {
     switch (action) {
       case ACTIONS.edit:
         setSaveEditData({
@@ -144,7 +137,7 @@ const History: React.FC<Props> = () => {
     }
   };
 
-  const deleteFinishedTracker = async (tracker: Trackers) => {
+  const deleteFinishedTracker = async (tracker: Tracker) => {
     const trackerDoc = doc(
       db,
       DB_COLLECTION_NAMES.finishedTimetrackers,
@@ -167,7 +160,7 @@ const History: React.FC<Props> = () => {
     });
   };
 
-  const bodyTemplate = (rowData: Trackers) => {
+  const bodyTemplate = (rowData: Tracker) => {
     return (
       <div
         style={{
