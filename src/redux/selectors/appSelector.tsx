@@ -1,9 +1,9 @@
-interface State {
-  app: {
-    isAuth: boolean;
-    unfinishedTrackers: Array<{}>;
-  };
+import { State } from "../reducers/appReducer";
+
+interface AppState {
+  app: State;
 }
-export const authSelector = (state: State) => state.app.isAuth;
-export const unfinishedTrackersSelector = (state: State) =>
+
+export const authSelector = (state: AppState) => state.app.isAuth;
+export const unfinishedTrackersSelector = (state: AppState) =>
   state.app.unfinishedTrackers;

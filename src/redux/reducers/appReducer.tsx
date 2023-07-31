@@ -3,7 +3,7 @@ import {
   SET_UNFINISHED_TRACKERS,
 } from "../actionTypes/appActionType";
 
-interface Trackers {
+export interface Tracker {
   id: string;
   createTime: number;
   description: string;
@@ -12,8 +12,8 @@ interface Trackers {
   userId?: string;
 }
 
-interface State {
-  unfinishedTrackers: Trackers[];
+export interface State {
+  unfinishedTrackers: Tracker[];
   isAuth: boolean | null;
 }
 
