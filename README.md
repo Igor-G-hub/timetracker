@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+React and Firebase app with login functionality and data storing to Firebase.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
